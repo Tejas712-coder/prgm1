@@ -1,0 +1,53 @@
+pipeline {
+
+    agent any
+
+    environment {
+        dockerImage = "**name**/test_2"
+        registry = "**name** "
+        registryCredential = "jenkin_docker_token"
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+
+                checkout scmGit(
+                    branches: [[name: '*/main']],
+                    extensions: [],
+                    userRemoteConfigs: [[
+                        url: '** git hub url link**'
+                    ]]
+                )
+
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+
+                script {
+                    dockerImage = docker.build(registry)
+                }
+
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+
+                script {
+
+                    docker.withRegistry('', registryCredential) {
+                        dockerImage.push("latest")
+                    }
+
+                }
+
+            }
+        }
+
+    }
+
+}
