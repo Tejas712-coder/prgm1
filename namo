@@ -1,0 +1,23 @@
+docker build -t test2 .
+docker run --name con2 test2
+docker image tag (id) name/test2
+docker push name/test2:latest 
+
+
+
+-----
+
+
+docker build -t test2 .
+
+docker run --con2 test2
+
+docker run --name con2 test2
+
+docker images 
+
+docker image tag (id) name/test2
+docker push name/test2:latest 
+
+
+
